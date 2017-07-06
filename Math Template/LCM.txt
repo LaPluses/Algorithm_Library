@@ -1,0 +1,6 @@
+L(1) = 1
+
+L(x+1) = { L(x) * p    if x+1 is a perfect power of prime p
+         { L(x)        otherwise
+
+L(x) Ϊ LCM(1,2,3....x)

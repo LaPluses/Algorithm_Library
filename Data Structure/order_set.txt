@@ -1,0 +1,6 @@
+#include <ext/pb_ds/assoc_container.hpp>  
+using namespace __gnu_pbds;
+
+tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> rbt; 
+*rbt.find_by_order( x ) ; //找第 x 大
+rbt.order_of_key( x ) ; //比 x 小的有多少个

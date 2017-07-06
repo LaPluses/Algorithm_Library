@@ -1,0 +1,34 @@
+int LowerBound(int *a, int n, int x)
+{
+  int left(0), right(n-1), mid;
+  
+  while(left <= right){
+    mid = left + ((right - left) >> 1);
+    if(a[mid] < x){
+        left = mid + 1;
+    }
+    else{
+        right = mid - 1;
+    }
+  }
+
+  return left;
+}
+
+// return first element which > x
+int UpperBound(int *a, int n, int x)
+{
+  int left(0), right(n-1), mid;
+
+  while(left <= right){
+      mid = left + ((right - left) >> 1);
+      if(a[mid] <= x){
+          left = mid + 1;
+      }
+      else{
+          right = mid - 1;
+      }
+  }
+
+  return left;
+}

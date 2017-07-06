@@ -1,0 +1,76 @@
+#include <ext/pb_ds/priority_queue.hpp>
+
+
+__gnu_pbds::priority_queue < int > Q;
+优先队列，配对堆默认，从小到大!
+
+__gnu_pbds::priority_queue < int , greater < int > , pairing_heap_tag  > Q;
+__gnu_pbds::priority_queue < int , greater < int > , pairing_heap_tag  > :: point_iterator id[ maxn ];
+
+id[x] = Q.push( 5 ) ;
+Q.modify( id[x] , 6) ; //直接修改
+
+
+支持join , push , pop操作
+
+
+#include <ext/pb_ds/assoc_container.hpp>  
+
+using namespace __gnu_pbds;
+
+tree < int , int , less < int > , rb_tree_tag , tree_order_statistics_node_update > rbt;
+tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update> :: iterator it ;
+
+
+find_by_order(size_type order)
+找第order+1小的元素的迭代器
+
+order_of_key(int val)
+问有多少个比val小
+
+
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/hash_policy.hpp>
+
+__gnu_pbds::cc_hash_table < key , value > hs;
+哈希
+支持[]和find操作
+
+
+struct HASH{
+  size_t operator()(const pair<int,int>&x)const{
+    return ((long long)x.first)^(((long long)x.second)<<32);
+  }
+};
+
+unordered_map<pair<int,int>,int,HASH>m;
+
+//-------------
+template < class Node_CItr , class Node_Itr , class Cmp_Fn , class _Alloc>
+struct MyUpdate{
+	virtual Node_CItr node_begin() const = 0;
+	virtual Node_CItr node_end() const = 0;
+	typedef int metadata_type;
+	inline void operator()(Node_Itr it , Node_CItr end_it){
+		Node_Itr l = it.get_l_child(), r = it.get_r_child();
+		int res = 0;
+		if(l != end_it) res = max( res , l.get_metadata());
+		if(r != end_it) res = max( res , r.get_metadata());
+		const_cast <metadata_type &>(it.get_metadata()) = max( res , (*it)->second );
+	}
+	inline int PrefixMax( int x ){
+		int ret = 0;
+		Node_CItr it = node_begin();
+		while( it != node_end() ){
+			Node_CItr l = it.get_l_child() , r = it.get_r_child();
+			if(Cmp_Fn()(x,(*it)->first)) it=l;
+			else{
+				ret = max( ret , (*it)->second );
+				if( l != node_end() ) ret = max( ret , l.get_metadata() );
+				it = r;
+			}
+		}
+		return ret;
+	}
+};
+tree < int , int , less < int > , rb_tree_tag , MyUpdate > rbt;
