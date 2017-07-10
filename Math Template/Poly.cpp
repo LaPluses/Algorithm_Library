@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
 namespace Poly{
     struct Complex{
         double r , c;
@@ -20,11 +16,22 @@ namespace Poly{
         }
     };
 
-    const static int maxn = 1 << 18;
+    const static int maxn = 1 << 19;
     const double pi = acos( -1 );
     const int mod = 1e9 + 7;
 
     Complex w1[maxn] , w2[maxn] , fr[maxn] , fw[maxn] , A[maxn] , B[maxn] , C[maxn] , D[maxn];
+
+    int power( int x , int y ){
+        int ret = 1;
+        while( y ){
+            if( y & 1 )
+                ret = 1LL * ret * x % mod;
+            y >>= 1;
+            x = 1LL * x * x % mod;
+        }
+        return ret;
+    }
 
     void Prepare( int N ){
         for(int i = 0 ; i < N ; ++ i)
@@ -91,9 +98,18 @@ namespace Poly{
             z[i] = ( ((long long)a << 30LL) + ((long long)b << 15LL) + c ) % mod;
         }
     }
-};
 
-int main( int argc , char * argv[] ){
-	
-	return 0;
-}
+    void Inverse( int * x , int * y , int n ){
+        static int ret[maxn] , z[maxn];
+        y[0] = power( x[0] , mod - 2 );
+        for(int len = 2 ; len <= n ; len <<= 1){
+            memset( z , 0 , sizeof( int ) * (len << 1) );
+            Mul( y , y , ret , len );
+            for(int i = 0 ; i < len ; ++ i) z[i] = x[i];
+            Mul( z , ret , ret , len << 1 );
+            for(int i = 0 ; i < len ; ++ i)
+                y[i] = ( 2LL * y[i] - ret[i] + mod ) % mod;
+        }
+    }
+
+};
