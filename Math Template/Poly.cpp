@@ -1,3 +1,7 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
 namespace Poly{
     struct Complex{
         double r , c;
@@ -66,7 +70,7 @@ namespace Poly{
             }
     }
 
-    void DFT( Complex * x , int n , Complex * r1 = A , Complex * r2 = B ){
+    void DFT( Complex * x , int n ,  Complex * r1 = A , Complex * r2 = B ){
         DFT( x , n , 1 );
         for(int i = 0 ; i < n ; ++ i){
             int j = ( n - i ) & (n - 1);
@@ -87,13 +91,13 @@ namespace Poly{
             fr[i] = A[i] * C[i];
             fw[i] = A[i] * D[i] + B[i] * C[i];
             A[i] = B[i] * D[i];
+            B[i] = Complex( fr[i].r - fw[i].c , fr[i].c + fw[i].r );
         }
-        DFT( fr , n , -1 );
-        DFT( fw , n , -1 );
+        DFT( B , n , -1 );
         DFT( A , n , -1 );
         for(int i = 0 ; i < n ; ++ i){
-            int a = (long long)( fr[i].r / n + 0.5 ) % mod;
-            int b = (long long)( fw[i].r / n + 0.5 ) % mod;
+            int a = (long long)( B[i].r / n + 0.5 ) % mod;
+            int b = (long long)( B[i].c / n + 0.5 ) % mod;
             int c = (long long)( A[i].r / n + 0.5 ) % mod;
             z[i] = ( ((long long)a << 30LL) + ((long long)b << 15LL) + c ) % mod;
         }
@@ -113,3 +117,9 @@ namespace Poly{
     }
 
 };
+
+
+int main( int argc , char * argv[] ){
+    
+	return 0;
+}
