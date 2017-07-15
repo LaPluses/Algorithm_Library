@@ -106,6 +106,16 @@ namespace Splay{
     	}
     }
 
+    int DFS( int o , int l ){
+    	if( s[ch[o][0]] == l - 1 )
+    		return o;
+    	ReleaseLabel( o );
+    	if( s[ch[o][0]] >= l )
+    		return DFS( ch[o][0] , l );
+    	else
+    		return DFS( ch[o][1] , l - s[ch[o][0]] - 1 );
+    }
+
     int Kth( int x , int k ){
     	ReleaseLabel( x );
     	if( k == s[ch[x][0]] + 1 ){
