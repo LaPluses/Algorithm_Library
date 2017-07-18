@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
 namespace Poly{
     struct Complex{
         double r , c;
@@ -105,6 +101,7 @@ namespace Poly{
 
     void Inverse( int * x , int * y , int n ){
         static int ret[maxn] , z[maxn];
+        memset( y , 0 , sizeof( int ) * n );
         y[0] = power( x[0] , mod - 2 );
         for(int len = 2 ; len <= n ; len <<= 1){
             memset( z , 0 , sizeof( int ) * (len << 1) );
@@ -117,9 +114,3 @@ namespace Poly{
     }
 
 };
-
-
-int main( int argc , char * argv[] ){
-    
-	return 0;
-}
