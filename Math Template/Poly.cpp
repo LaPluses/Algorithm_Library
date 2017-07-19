@@ -101,16 +101,15 @@ namespace Poly{
 
     void Inverse( int * x , int * y , int n ){
         static int ret[maxn] , z[maxn];
-        memset( y , 0 , sizeof( int ) * n );
         y[0] = power( x[0] , mod - 2 );
         for(int len = 2 ; len <= n ; len <<= 1){
-            memset( z , 0 , sizeof( int ) * (len << 1) );
+            memset( ret + len , 0 , sizeof( int ) * len );
             Mul( y , y , ret , len );
-            for(int i = 0 ; i < len ; ++ i) z[i] = x[i];
+            memcpy( z , x , sizeof( int ) * len );
+            memset( z + len , 0 , sizeof( int ) * len );
             Mul( z , ret , ret , len << 1 );
             for(int i = 0 ; i < len ; ++ i)
                 y[i] = ( 2LL * y[i] - ret[i] + mod ) % mod;
         }
     }
-
 };
