@@ -10,6 +10,7 @@
 + Persistent Trie
 + Persistent Treap
 + Dynamic Convexhull
++ KDTree
 
 
 ## Graph Theory:
