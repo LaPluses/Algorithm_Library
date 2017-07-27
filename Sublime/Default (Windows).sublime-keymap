@@ -1,0 +1,12 @@
+[
+	{ "keys": ["f4"], "command": "build" },
+	{ "keys": ["f5"], "command": "build", "args": {"variant": "RunInShell"} },
+    {
+      "keys":["f2"],
+      "caption": "SublimeREPL: Python - RUN current file",
+      "command": "run_existing_window_command", "args":
+      {"id": "repl_python_run","file": "config/Python/Main.sublime-menu"}
+    },
+	{ "keys": ["ctrl+q"], "command": "toggle_side_bar" },
+
+]
