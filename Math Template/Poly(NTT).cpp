@@ -77,13 +77,18 @@ namespace Poly{
         static int ret[maxn] , z[maxn];
         y[0] = power( x[0] , mod - 2 );
         for(int len = 2 ; len <= n ; len <<= 1){
-            memset( ret + len , 0 , sizeof( int ) * len );
-            Mul( y , y , ret , len );
-            memcpy( z , x , sizeof( int ) * len );
-            memset( z + len , 0 , sizeof( int ) * len );
-            Mul( z , ret , ret , len << 1 );
-            for(int i = 0 ; i < len ; ++ i)
-                y[i] = ( 2LL * y[i] - ret[i] + mod ) % mod;
+            memset( ret , 0 , len << 3 );
+            memset( z , 0 , len << 3 );
+            memcpy( z , x , len << 2 );
+            memcpy( ret , y , len << 1 );
+            NTT( z , len << 1 , 1 );
+            NTT( ret , len << 1 , 1 );
+            for(int i = 0 ; i < ( len << 1 ) ; ++ i){
+                y[i] = 1LL * ret[i] * ( 2 - 1LL * ret[i] * z[i] % mod ) % mod;
+                if( y[i] < 0 ) y[i] += mod;
+            }
+            NTT( y , len << 1 , -1 );
+            memset( y + len , 0 , len << 2 );
         }
     }
 
