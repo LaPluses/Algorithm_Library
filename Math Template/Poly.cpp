@@ -16,7 +16,7 @@ namespace Poly{
         }
     };
 
-    const static int maxn = 1 << 19;
+    const static int maxn = 1 << 18;
     const double pi = acos( -1 );
     const int mod = 1e9 + 7;
 
@@ -110,6 +110,38 @@ namespace Poly{
             Mul( z , ret , ret , len << 1 );
             for(int i = 0 ; i < len ; ++ i)
                 y[i] = ( 2LL * y[i] - ret[i] + mod ) % mod;
+        }
+    }
+
+    void Log( int * x , int * y , int n ){
+        static int z[maxn];
+        memset( z , 0 , sizeof( int ) * (n << 1) );
+        x[0] = 1;
+        Inverse( x , y , n );
+        for(int i = 1 ; i < n ; ++ i)
+            z[i - 1] = 1LL * i * x[i] % mod;
+        Mul( y , z , z , n << 1 );
+        for(int i = 1 ; i < n ; ++ i)
+            y[i] = 1LL * z[i - 1] * power( i , mod - 2 ) % mod;
+    }
+
+    void Exp( int * x , int * y , int n ){
+        static int z[maxn];
+        x[0] = y[0] = 1;
+        for(int len = 2 ; len <= n ; len <<= 1){
+            memset( z , 0 , len << 2 );
+            Log( y , z , len );
+            for(int i = 0 ; i < len ; ++ i)
+                if( z[i] )
+                    z[i] = Poly::mod - z[i];
+            z[0] += 1;
+            for(int i = 0 ; i < len ; ++ i){
+                z[i] += x[i];
+                if( z[i] >= mod )
+                    z[i] -= mod;
+            }
+            Mul( y , z , y , len << 1 );
+            memset( y + len , 0 , len << 2 );
         }
     }
 };
