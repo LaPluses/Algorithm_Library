@@ -1,7 +1,7 @@
 namespace Poly{
-    const int mod = 998244353;   // 模数
-    const int Root = 3;  // 原根
-    const int maxn = 1 << 18;
+    const int mod = 998244353;
+    const int Root = 3;
+    const int maxn = 2050;
     int ta[maxn] , tb[maxn];
 
     inline int mul( int x , int y ){
@@ -122,5 +122,36 @@ namespace Poly{
             Mul( y , z , y , len << 1 );
             memset( y + len , 0 , len << 2 );
         }
+    }
+
+    void NormalPower( int * x , int * y , int n , int k ){
+        static int z[maxn];
+        memset( y , 0 , n << 2 );
+        memcpy( z , x , n << 3 );
+        y[0] = 1;
+        while( k ){
+            NTT( z , n << 1 , 1 );
+            if( k & 1 ){
+                NTT( y , n << 1 , 1 );
+                for(int i = 0 ; i < (n << 1) ; ++ i)
+                    y[i] = 1LL * y[i] * z[i] % mod;
+                NTT( y , n << 1 , -1 );
+                memset( y + n , 0 , n << 2 );
+            }
+            for(int i = 0 ; i < (n << 1) ; ++ i)
+                z[i] = 1LL * z[i] * z[i] % mod;
+            NTT( z , n << 1 , -1 );
+            memset( z + n , 0 , n << 2 );
+            k >>= 1;
+        }
+    }
+
+    void Power( int * x , int * y , int n , int k ){
+	assert( x[0] == 1 ); // x[0] = 1
+        static int z[maxn];
+        Log( x , z , n );
+        for(int i = 0 ; i < n ; ++ i)
+            z[i] = 1LL * z[i] * k % mod;
+        Exp( z , y , n );
     }
 };
