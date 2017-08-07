@@ -76,7 +76,6 @@ namespace Poly{
     }
 
     void Mul( int * x , int * y , int * z , int n ){
-        Prepare( n );
         for(int i = 0 ; i < n ; ++ i){
             fr[i] = Complex( x[i] >> 15 , x[i] & 32767 );
             fw[i] = Complex( y[i] >> 15 , y[i] & 32767 );
