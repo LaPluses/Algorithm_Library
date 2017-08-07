@@ -33,9 +33,9 @@ namespace Poly{
         return ret;
     }
 
-    void Prepare( int N ){
-        for(int i = 0 ; i < N ; ++ i)
-            w1[i] = w2[i] = Complex( cos( 2 * pi * i / N ) , sin( 2 * pi * i / N ) ),
+    void Prepare(){
+        for(int i = 0 ; i < maxn ; ++ i)
+            w1[i] = w2[i] = Complex( cos( 2 * pi * i / maxn ) , sin( 2 * pi * i / maxn ) ),
             w2[i].c = -w2[i].c;
     }
 
@@ -55,7 +55,7 @@ namespace Poly{
 
     void DFT( Complex * x , int n , int on ){
         ButterflyTrans( x , n );
-        for(int len = 2 , step = (n >> 1) ; len <= n ; len <<= 1 , step >>= 1)
+        for(int len = 2 , step = (maxn >> 1) ; len <= n ; len <<= 1 , step >>= 1)
             for(int i = 0 ; i < n ; i += len){
                 Complex * base = on > 0 ? w1 : w2;
                 for( Complex * l = x + i , * r = x + i + (len >> 1) ; r < x + i + len ; ++ l , ++ r , base += step ){
