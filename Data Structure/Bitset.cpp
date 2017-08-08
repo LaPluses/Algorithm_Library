@@ -4,7 +4,7 @@ namespace Bitset{
 
 	void lftmove( ull * x , ull * y , int z ){
 		memset( y , 0 , Maxsz << 3 );
-		if( z >= Maxsz * 60 ) return;
+		if( z >= Maxsz * 64 ) return;
 		for(int i = Maxsz - 1 - z / 64 , j = Maxsz - 1 ; i >= 0 ; -- i , -- j)
 			y[j] = x[i];
 		int s = z % 64;
@@ -17,7 +17,7 @@ namespace Bitset{
 
 	void rightmove( ull * x , ull * y , int z ){
 		memset( y , 0 , Maxsz << 3 );
-		if( z >= Maxsz * 60 ) return;
+		if( z >= Maxsz * 64 ) return;
 		for(int i = z / 64 , j = 0 ; i < Maxsz ; ++ i , ++ j)
 			y[j] = x[i];
 		int s = z % 64;
