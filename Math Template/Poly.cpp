@@ -115,6 +115,7 @@ namespace Poly{
     void Log( int * x , int * y , int n ){
         static int z[maxn];
         memset( z , 0 , sizeof( int ) * (n << 1) );
+        memset( y , 0 , sizeof( int ) * (n << 1) );
         x[0] = 1;
         Inverse( x , y , n );
         for(int i = 1 ; i < n ; ++ i)
