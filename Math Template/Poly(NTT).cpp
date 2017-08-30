@@ -1,7 +1,6 @@
 namespace Poly{
     const int mod = 998244353;
-    const int Root = 3;
-    const int maxn = 2050;
+    const int maxn = 1 << 18;
     int ta[maxn] , tb[maxn];
 
     inline int mul( int x , int y ){
