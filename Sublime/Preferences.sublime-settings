@@ -1,0 +1,19 @@
+{
+	"color_scheme": "Packages/Boxy Theme/schemes/Boxy Monokai.tmTheme",
+	"font_face": "Source Code Pro Semibold",
+	"font_options":
+	[
+		"subpixel_antialias"
+	],
+	"font_size": 15.0,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"Anaconda",
+		"Jedi - Python autocompletion",
+		"SublimeCodeIntel",
+		"SublimeLinter-cpplint",
+		"Vintage"
+	],
+	"save_on_focus_lost": true
+}
